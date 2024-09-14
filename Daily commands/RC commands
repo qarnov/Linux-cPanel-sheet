@@ -23,6 +23,7 @@ sitereport <domain> <server>	performs a variety of account checks and reports pr
 uf <domain> <server>	display all vhosts matching the the domain
 	
 cpanel:	
+DJ <domain> <server> 	dropjails to the home directroy of the account
 checkips <server>	runs a check against used dedicated IPs to ensure theyre being used properly
 checkrescancel <user> <server>	displays last cPanel and FTP login times for a reseller and resold
 iskilled <domain> <server>	runs iskilled against a specified domain
