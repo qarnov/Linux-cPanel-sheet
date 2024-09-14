@@ -1,0 +1,80 @@
+Free space from server:-
+========================
+
+find ./ -mindepth 1 -maxdepth 3 -size +1G -type f
+
+for i in `find -mindepth 1 -maxdepth 2 -type d -name .trash`; do rm -frv $i; done
+
+find -mindepth 1 -maxdepth 7 -type f -name "*.wpress" -exec rm -f {} \;
+
+find -mindepth 1 -maxdepth 7 -type d -name softaculous_backups -exec rm -fr {} \;
+
+ll -lrsh /home/*/public_html/wp-content/ai1wm-backups/
+
+ll -lrsh /home/*/softaculous_backups
+
+find ./ -size +1000000000c
+
+ll -lrsh /home/*/*.zip
+
+ll -lrsh /home/*/*.tar.gz
+
+ll -lrsh /home/*/public_html/error_log
+
+ll -lrsh /home/*/*.trash
+
+find / -name '*' -size +500M
+
+find /home -type f -size +500000k -exec ls -lh {} \; | awk '{ print $9 ": " $5 }'
+
+Commands:-
+----------
+du -sch /home/* | grep G
+for i in `du -sch /home*/*/.trash | grep M | awk '{print $2}' ` ; do rm -rf $i ; done
+for i in `du -sch /home*/*/.trash | grep G | awk '{print $2}' ` ; do rm -rf $i ; done
+df -hT
+
+echo 3 >/proc/sys/vm/drop_caches
+
+
+========================
+
+To check how many reseller are on the server:-
+-----------+
+cat /var/cpanel/resellers | cut -d":" -f1 | wc -l
+-----------+
+
+========================
+
+To check how many accounts are on the server
+-----------+
+cat /etc/domainusers | wc -l
+-----------+
+
+========================
+
+Plesk Linux audit:-
+-------------------
+/var/lib/psa/dumps/resellers/
+./var/log/plesk-php56-fpm/error.log
+
+========================
+
+find ./ -mindepth 1 -maxdepth 8 -type d -iname OFFICE
+find ./ -mindepth 1 -maxdepth 8 -type d -name bank | grep -v virtfs
+find -mindepth 1 -maxdepth 8 -type d -name INTERAC
+find -mindepth 1 -maxdepth 8 -type d -name Tangerine
+find -mindepth 1 -maxdepth 8 -type d -name bank_files
+find -mindepth 1 -maxdepth 8 -type d -name HSBC
+find -mindepth 1 -maxdepth 12 -type d -name Desjardins
+find -mindepth 1 -maxdepth 12 -type d -name Meridian
+find -mindepth 1 -maxdepth 12 -type d -name Microsoft
+find -mindepth 1 -maxdepth 12 -type d -name office365
+find -mindepth 1 -maxdepth 12 -type d -name 9x.html
+find -mindepth 1 -maxdepth 12 -type d -name live
+find -mindepth 1 -maxdepth 12 -type d -name Apple
+
+========================
+
+arping -A -c 1 -I eno1 103.108.220.124
+ethtool -s eth0 speed 100 duplex full autoneg off

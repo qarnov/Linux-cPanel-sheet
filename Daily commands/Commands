@@ -1,0 +1,598 @@
+How to Increase Upload Size MySQL Database on cPanel with phpMyAdmin:-
+----------------------------------------------------------------------
+https://coolestguidesontheplanet.com/increase-upload-database-size-for-cpanel-and-phpmyadmin-server/
+https://forums.cpanel.net/threads/increasing-max-upload-file-size-in-cpanel-phpmyadmin.61078/
+
+Open command prompt as an administrator and run the following commands:-
+------------------------------------------------------------------------
+Net stop dnscache
+Net start dnscache
+ipconfig /flushdns
+ipconfig /registerdns
+
+To set privilage for reseller via command:-
+-------------------------------------------
+/usr/local/cpanel/scripts/fix_reseller_acls --add-default-privs --reseller <Username>
+
+magento-test-file.php for check the missing module:-
+====================================================
+https://gist.github.com/atomicpages/4383809
+https://gist.github.com/mhhansen/9493703
+
+How to Install node js in cpanel:-
+----------------------------------
+https://hostiso.com/how-to-install-setup-node-js/
+
+ImunifyAV & 360Agent Malware report generates commands:-
+---------------------------------------------------------
+imunify-antivirus malware malicious list --user username --limit 500 | awk '{print $8}' > scanresult.txt
+imunify360-agent malware malicious list --user username --limit 100 > /home/username/scanresult.txt
+imunify360-agent malware malicious list --user username --limit 100 > /home/username/scanresult.txt
+
+To check previous history of site :-
+------------------------------------
+http://web.archive.org/
+
+To get a list of the inodes usage for every directory in the directory you are currently in, execute the following command:-
+----------------------------------------------------------------------------------------------------------------------------
+echo "Detailed Inodes usage for: $(pwd)" ; for d in `find -maxdepth 1 -type d |cut -d\/ -f2 |grep -xv . |sort`; do c=$(find $d |wc -l) ; printf "$c\t\t- $d\n" ; done ; printf "Total: \t\t$(find $(pwd) | wc -l)\n"
+
+On the opened terminal page you can try using the following commands:-
+----------------------------------------------------------------------
+Show total Inode usage:
+find . | wc -l
+
+Inode usage for directories and files located in the current directory:
+find . -printf "%h\n" | cut -d/ -f-2 | sort | uniq -c | sort -rn
+
+List of Top50 directories by the number of Inode on those directories (number of results displayed described by “head -50” value):
+find . -xdev -type d -exec sh -c 'echo "$(find "$0" | grep "^$0/[^/]*$" | wc -l) $0"' {} \; | sort -rn | head -50
+
+To clear cache Command:-
+------------------------
+echo 2 > /proc/sys/vm/drop_caches      ====>  (To free up cache from server)
+/usr/sbin/exim -bpr | grep frozen | awk '{print $3}' | xargs exim -Mrm      =====>  (Remove frozen mails)
+kill -9 $(ps -A -ostat,ppid | grep -e '[zZ]'| awk '{ print $2 }') --->> TO kill zombies process
+cat /var/log/exim_mainlog | grep domain.com  | grep "2018-08-04" | wc -l 
+
+
+To check large backup stored under server:-
+-------------------------------------------
+#find ./ -mindepth 1 -maxdepth 3 -size +1G -type f             -----> (enter command under cd /home directory)
+
+the below command to see from where the spams are initiating:-
+--------------------------------------------------------------
+head -1 /var/log/exim_mainlog | awk '{print $1}' ; awk '$3 ~ /^cwd/{print $3}' /var/log/exim_mainlog | sort | uniq -c | sed "s|^ *||g" | sort -nr | head --lines 15 | egrep -v ' cwd=(/$|/etc/csf|/var/spool/exim)' ; tail -1 /var/log/exim_mainlog | awk '{print From $1}'
+
+
+Here is the command line which clients is sending spams by root ssh:-
+---------------------------------------------------------------------
+grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n
+
+
+find out spamming php script using below command also:-
+-------------------------------------------------------
+tail -n 1000 /var/log/exim_mainlog | grep /home
+
+
+------------------------------------
+Login node via ssh:-
+====================
+1. ssh root@107.86.17.1 -p 22 (login to node)
+2. vzlist -a | grep IP
+3. vzctl enter ID
+4. csf -r
+After that you can go to the /etc/hosts.allow file
+and add his local IP to the list of cpanel and whm
+------------------------------------
+
+
+To check domain dns:-
+=====================
+lynx <999bazzar.in>
+
+
+Database Serach command:-
+=========================
+grep -lr "username_"
+
+
+To fix disk quota:-
+===================
+/scripts/fixquotas   -->   (To fix disk quota issue which show 0 size in whm)
+
+
+To remove history from shell:-
+==============================
+cat /dev/null > ~/.bash_history && history -c && exit
+
+
+To check database connections:-
+===============================
+mysqladmin processlist | grep unitech_uniman |wc -l
+
+
+To generate the DKIM key for the user (DKIM, SPF):-
+===================================================
+# /usr/local/cpanel/bin/dkim_keys_install <Username>
+# /usr/local/cpanel/bin/spf_installer <Username>
+
+
+For this pdo.so error:-
+Fatal error: Class 'PDO' not found in /home/username/public_html/includes/database/database.inc on line 184
+put following in php.ini file:
++=================
+extension="pdo.so"
+extension="pdo_mysql.so"
++=================
+
+
+If php files are getting downloaded instead of executing then put following code in .htaccess file
+PHP files are downloading instead of executing
+==================
+AddHandler application/x-httpd-php5 .php
+Apache handler
+==================
+
+
+Default apache handler
+===============
+DirectoryIndex index.php
+===============
+
+
+To get regular html pages to handle php code, you need to add this line to your htaccess file.
+====================
+AddHandler application/x-httpd-php5 .html .htm
+=====================
+
+
+To check default handler set on the server
+=====================
+grep DirectoryIndex /etc/httpd/conf/httpd.conf
+=====================
+
+---------------------------------------
+
+To check a permission and ownership of file,folder or path of configuration file:-
+----------------------------------------------------------------------------------
+stat /etc/named.conf
+stat <file name>
+
+---------------------------------
+
+WordPress compromised site clean:-
+==================================
+mv public_html public_html_wp_upgrade 
+wget https://wordpress.org/latest.tar.gz
+tar -xf latest.tar.gz 
+mkdir public_html 
+mv wordpress/* public_html/
+chown username.username public_html -R 
+chmod 750 public_html
+chgrp nobody public_html
+rm -fr public_html/wp-content 
+mv public_html_wp_upgrade/wp-config.php public_html/
+mv public_html_wp_upgrade/wp-content public_html/
+mv public_html_wp_upgrade/.htaccess public_html/
+mv public_html_wp_upgrade/google* public_html/
+rm -fr wordpress latest.tar.gz
+cd public_html;find -type f -exec chmod 644 {} \;
+---------------------------------------
+
+Delete .htaccess files From all directory:-
+-------------------------------------------
+find . -name \*.htaccess -type f -delete
+
+=========================+
+
+SSL Installation via command line:-
+-----------------------------------
+Example =>
+
+=> SSL Directory - /etc/pmta/sygbo_ssl
+$ openssl req -new -newkey rsa:2048 -nodes -keyout example.com.key -out example.com.csr
+
+=> Combine the SSL Cert and Key file's to  common_example.com.pem  
+$ cat example_com.crt example.com.key >> common_example.com.pem
+
+e.g files format:-
+common_example.com.pem
+example.com.ca-bundle.pem
+example_com.crt
+example.com.key
+
+=========================+
+
+Imunify360:-
+------------
+wget https://repo.imunify360.cloudlinux.com/defence360/i360deploy.sh
+bash i360deploy.sh 
+imunify360-agent register IPL
+
+Litespeed:-
+-----------
+wget https://www.litespeedtech.com/packages/cpanel/lsws_whm_autoinstaller.sh
+chmod a+x lsws_whm_autoinstaller.sh
+./lsws_whm_autoinstaller.sh TRIAL 1 0 <username> <"password"> admin@domainname.com 1 0
+
+Site URL: https://www.litespeedtech.com/support/wiki/doku.php/litespeed_wiki:cpanel:auto-installer   ---> (For refernce)
+
+
+Update litespeed:-
+------------------
+/usr/local/lsws/admin/misc/lsup.sh -f -v 5.2
+/etc/init.d/lsws stop/start
+
+
+Tomcat service restart command:-
+================================
+/etc/init.d/easy-tomcat7 restart
+
+
+Deleting tons of files in Linux (Argument list too long)
+--------------------------------------------------------
+find . -type f -print -delete
+find . -name '*' | xargs rm
+
+
+MySQL Issue:-
+=============
+basically, make a backup of your crashed tables. edit your /etc/my.cnf and add
+innodb_force_recovery = 1
+
+
+To restart mysql:-
+==================
+systemctl start mariadb.service
+
+
+Replace database command:-
+--------------------------
+replace "http://domain.com" "https://domain.com" -- fabmake_av12.sql
+sed -i -e "s/OldWord/NewWord/g" <FileName>
+
+Command to reset from MySQL console:-
+=====================================
+mysql> USE mysql;
+mysql> UPDATE user SET Password=PASSWORD('new-password') WHERE user='root';
+mysql> FLUSH PRIVILEGES;
+
+To remove history from shell:-
+------------------------------
+cat /dev/null > ~/.bash_history && history -c && exit
+
+
+nano opt. in shell:-
+---------------------
+nano 
+ctrl + w ---> search opt.
+ctrl + x ----> exit and save by press y
+
+
+Check load average commands:-
+-----------------------------
+# w
+# uptime
+# top
+# cat /proc/loadavg
+# kill -9 $(ps -A -ostat,ppid | grep -e '[zZ]'| awk '{ print $2 }') --->> TO kill zombies process
+# mysqladmin pr                 -------> (mysql status)
+# watch mysqladmin pr           -------> (mysql watch)
+
+kill the process:-
+------------------
+# kill -9 PID
+# killall -9 php
+
+
+You can kill httpd, if Apache is consuming high resources:-
+-----------------------------------------------------------
+# killall -9 httpd
+# /etc/init.d/httpd restart
+
+
+To update cpanel license :-
+---------------------------
+/usr/local/cpanel/cpkeyclt
+
+
+To update date and time:-
+-------------------------
+rdate -s rdate.cpanel.net
+
+
+To update date and time:-
+-------------------------
+ln  -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+
+
+info.php content:-
+-------------------
+<? phpinfo(); ?>
+
+
+Letsencrypt licence:-
+---------------------
+cat /etc/letsencrypt-cpanel.licence      ----->   (letsencrypt path)
+
+
+For auditing of account:-
+-------------------------
+# du -sch *
+
+
+To install Zend Optimizer:-
+---------------------------
+1. Login to your server via SSH
+2. Run: /scripts/installzendopt
+
+
+To Check SSL Certificate of website:-
+-------------------------------------
+curl --insecure -v https://domainname.com 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'
+echo | openssl s_client -servername www.domainname.com -connect www.domainname.com:443 2>/dev/null | openssl x509 -noout -text
+openssl ciphers -v | awk '{print $2}' | sort | uniq
+
+
+Server Load Commands:-
+======================
+Check the number of connections from an IP address currently connected to the server:-
+--------------------------------------------------------------------------------------
+netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n
+netstat -nap | grep :443 |wc -l          ======>  To check IP connection.
+netstat -atun | awk '{print $5}' | cut -d: -f1 | sed -e '/^$/d' |sort | uniq -c | sort -n      ====>   (To check Ip connection on server)
+
+Below is an Unix command to list all the IP addresses connected to your server on port 80:-
+===========================================================================================
+netstat -tn 2>/dev/null | grep :80 | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head
+
+
+To find unique IP addresses of Apache web server, use:-                                              =====>  (Doc Link: https://www.tecmint.com/find-top-ip-address-accessing-apache-web-server/)
+=======================================================
+awk '{print $1}' /var/log/apache2/access.log | sort | uniq -c | sort -nr | head -10
+
+To find unique IP addresses of the Nginx web server, use:-
+==========================================================
+awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head -10
+
+Alternatively, you can make use of the grep command to filter the access log for a specific time range or pattern matching.
+grep "2023-10-10 12:00" /var/log/nginx/access.log | awk '{print $1}' | sort | uniq -c | sort -nr | head -10
+
+
+Restore the backup commands:-
+-----------------------------
+rsync -a /path/to/backup /path/to/restored/folder ===> (Restore the backup of account)
+tar -zcvf tar-archive-name.tar.gz source-folder-name
+tar -zcf filename.tar.gz
+tar -xvf homedir.tar                              ===> (To untar in SSH)
+tar -tvf file.tar                                 ===> (To view the files in tar.gz)
+link : http://www.cyberciti.biz/faq/list-the-contents-of-a-tar-or-targz-file/
+link : http://www.cyberciti.biz/faq/tar-extract-linux/
+
+
+To suspend the account :-
+-------------------------
+/scripts/suspendacct username "reason"    ===> (To suspend the account)
+/scripts/unsuspendacct username           ===> (To unsuspend the account)
+/scripts/killacct username                ===> (To completely terminate the account from server)
+
+
+Backup Script Command:-
+-----------------------
+/scripts/restorepkg --force fullpath&namefilebackup
+/scripts/pkgacct <username> (To create backup)
+/usr/local/cpanel/bin/backup --force   (I found a command to force a backup of all accounts using the new backup system)
+rsync --progress -a sourceDirectory destinationDirectory
+rsync -avh --progress sourceDirectory destinationDirectory
+pv my_big_file > backup/my_big_file
+
+
+CSF command :-
+--------------
+csf -g                 ===> (IP to check ofr IP block)
+csf -dr                ===> (IP to remove IP from block list)
+csf -r                 ===> (To restart firewall)
+csf -a                 ===> (To accept IP)
+csf -x                 ===> (To disable firwall)
+grep -rl IPADDRESS /var/lib//mysql/cphulkd/  ===> (Check Ip address in cPhulk )
+grep 106.211.64.120 /var/log/maillog | grep -i fail
+grep 106.211.3.72 /usr/local/cpanel/logs/login_log
+grep 123.123.123.123 /var/log/exim_mainlog | grep set_id
+https://serversitters.com/deciphering-csf-blocked-messages.html
+
+
+To correct the files/directory permissions inside public_html directory
+======================
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+======================
+
+
+Cronjob Command :-
+------------------
+crontab -e
+crontab -u username -l
+
+
+WHMCS Cron run via script:-
+---------------------------
+/opt/cpanel/ea-php71/root/usr/bin/php -q /home/username/whmcsdata/crons/cron.php all -F -vvv
+/usr/local/bin/ea-php56 -q /home/username/public_html/artisan schedule all -F -vvv
+php -q /home/username/public_html/billing/crons/cron.php all -F -vvv
+
+
+maldet scan:-
+-------------
+maldet -a /home/username/                    ===> (To scan a specific user's home directory)
+maldet -a /home/username/public_html/         ===> (To scan a specific user's home & public_html directory)
+maldet -b --scan-all /home?/?/public_?        ===> (To scan for all user's public_html and public_ftp in all home directories)
+maldet --report list                          ===> (List all scan reports time and SCANID)
+maldet --report SCANID                        ===> (Show a specific report details)
+grep "{scan}" /usr/local/maldetect/event_log  ===> (Show all scan details from log file)
+maldet -q SCANID                              ===> (By default the quarantine is disabled)
+clamscan -ri /home/username/public_html/
+
+
+To change the site URL from wp-admin backend:-
+----------------------------------------------
+For wp sites  >> go wp-admin >> setting >> general >> site URL
+
+
+To check Email:-
+----------------
+# exim -bpc --->  to view the number of emails in the queue
+# exim -bp --->  emails that are currently in queue
+/usr/sbin/exim -bpr | grep “<” | wc -l    --->  Number of emails in the que
+/usr/sbin/exim -bpr | grep frozen | wc -l   --->  How many Frozen mails on the queue
+exim -bpr | grep "<>" | awk '{print $3}' | xargs exim -Mrm  ----->  remove the fail email from server
+/usr/sbin/exim -bpr | grep frozen | awk '{print $3}' | xargs exim -Mrm  --->  Deleteing Frozen Messages
+
+
+TO check mails :-
+-----------------
+exim -bpc
+exim -Mvh mail-id
+exim -Mvb mail-id
+tail -f /var/log/exim_mainlog | grep domain_name  ===> (For mail delivery monitoring purposes, you may execute this command)
+grep [**] /var/log/exim_mainlog
+vi  /etc/remotedomains                            ===> (To add the domain_name in list)
+tail -f /var/log/maillog                          ===> (To view mailbox you can use mail command)
+grep something /var/log/maillog
+exigrep ------@domain.com /var/log/exim_mainlog   ===> (To check the sent email status)
+
+
+To check mail logs:-
+--------------------
+#cat /var/log/exim_mainlog
+#exigrep example.com /var/log/exim_mainlog
+#grep someone@example.com /usr/local/psa/var/log/maillog |more
+#tail -f /usr/local/psa/var/log/maillog
+
+
+Restart Command:-
+-----------------
+/etc/init.d/service restart     ===> (stop, start, status by using service)
+systemctl restart service       ===> (stop, start, status by using service)
+service <service> restart       ===> (stop, start, status by using service)
+/script/restartsrv_service      ===> (stop, start, status by using service)
+
+
+If Webmail.domainname.TLD is showing default page then do following:-
+---------------------------------------------------------------------
+Go to WHM >> Main >> Server Configuration >> Tweak Settings >> serach for "proxy subdomains" >> ON
+
+
+Roundcube database error:-                    ------>     (DATABASE ERROR: CONNECTION FAILED!)
+==========================
+rpm -e --nodeps cpanel-roundcubemail
+ /usr/local/cpanel/scripts/check_cpanel_rpms --fix
+ /usr/local/cpanel/bin/update-roundcube-sqlite-db --force
+
+
+IP blacklist check URL:-
+------------------------
+link : http://www.blacklistalert.org/
+link : http://whatismyipaddress.com/blacklist-check
+link : http://www.mxtoolbox.com/blacklists.aspx
+
+
+Default wordpress code in .htaccess:-
+--------------------------------------
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>                          
+# END WordPress
+
+-------------------
+chattr code for .htaccess:-
+===========================
+chattr +aiu .htaccess
+
+Set chatter to all files/folder inside folder:-
+===============================================
+chattr -R +aui public_html/
+ 
+to remove chatter:-
+===================
+chattr -R -aui public_html/
+-------------------
+
+
+To check a permission and ownership of file,folder or path of configuration file:-
+----------------------------------------------------------------------------------
+stat /etc/named.conf
+stat <file name>
+
+
+how to increase phpmyadmin import file size :-
+-----------------------------------------------
+pico /usr/local/cpanel/3rdparty/etc/phpmyadmin/php.ini
+post_max_size = 55M 
+upload_max_filesize = 55M
+
+
+To block country IP:-
+---------------------
+go to configure firewall >> seach for cc_deny and put country code there and update
+All country code link : http://webstore.lexi.com/s.nl/ctype.KB/it.I/id.378/KB.3234/.f
+
+
+cloudlinux documentation:-
+--------------------------
+Read this 4 times
+link : http://docs.cloudlinux.com/index.html?cagefs.html
+
+
+--------------------------------------------------------------------------------------------------
+inode commands :-
+-----------------
+1) For dedicated customers you can check the inodes of an account on your server by using SSH:
+=> quota -s <cpanel username>
+
+2) If you have SSH access to your account you can view the inodes for a specific folder using the 
+
+following command:
+=> echo "Detailed Inode usage for: $(pwd)" ; for d in `find -maxdepth 1 -type d |cut -d\/ -f2 |grep -xv . |sort`; do c=$(find $d |wc -l) ; printf"$c\t\t- $d\n" ; done ; printf "Total: \t\t$(find $(pwd) | wc -l)\n"
+
+3) To display inode in the stats of Cpanel account
+=> WHM -> Tweak Settings -> "Display File Usage information in the cPanel stats bar (inode count)"
+----------------------------------------------------------------------------------------------------
+
+
+Bitninja SSL issue:-
+====================
+Recently there was an issue on divine, where SSL on domain names was showing SSL mismatch error. Restarting bitninja used to fix the issue.
+However, permanent fix is to apply commands below on the server. This is when newly installed SSL shows Certificate mismatch error
+------------------------------+
+rm -f /opt/bitninja-ssl-termination/etc/haproxy/certs/* 
+rm -f /opt/bitninja-ssl-termination/etc/haproxy/cert-list.lst 
+rm -f /opt/bitninja-ssl-termination/etc/haproxy/haproxy.cfg
+bitninjacli --module=SslTerminating --regenerate 
+bitninjacli --module=SslTerminating --reload
+------------------------------+
+
+
+To remove all the install which has been perform on server:-            ---->  (Make a clean vps server)
+============================================================
+yum history list|awk '$1 ~ /[0-9]+/ {print $1}'| while read a; do yum history undo -y $a; done
+
+
+==============+
+** To  change the PHP Version
+$ update-alternatives --config php
+select php version and ennter
+
+$ a2dismod php7.2
+$ systemctl restart apache2
+$ a2enmod php5.6
+$ systemctl restart apache2
+==============+
+
+                        *************************************************************************************
