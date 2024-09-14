@@ -1,0 +1,45 @@
+Run below command to check and Install Auto SSl:-
+==================================================
+[root@server ~]# /usr/local/cpanel/bin/check          --------->   (Run Command)
+check_cpstore_in_sync_with_local_storage  checkmailmanhome
+check_exim_config                         checkmailmanrequests
+check_install_integrity_and_repair        checkphpini
+check_nsd_badzones                        checksshconf
+checkallsslcerts                          checkvirtfs
+checkmailmancron
+
+[root@server ~]# /usr/local/cpanel/bin/checkallsslcerts    ------------>  (Run Command)
+Output Below:-
+The system will check for the certificate for the “cpanel” service.
+The system will attempt to verify that the certificate for the “cpanel” service is still valid using OCSP (Online Certificate Status Protocol).
+The certificate for the “cpanel” service passed all checks.
+The system will check for the certificate for the “dovecot” service.
+The system will attempt to verify that the certificate for the “dovecot” service is still valid using OCSP (Online Certificate Status Protocol).
+The certificate for the “dovecot” service passed all checks.
+The system will check for the certificate for the “exim” service.
+The system will attempt to verify that the certificate for the “exim” service is still valid using OCSP (Online Certificate Status Protocol).
+The certificate for the “exim” service passed all checks.
+The system will check for the certificate for the “ftp” service.
+The system will attempt to verify that the certificate for the “ftp” service is still valid using OCSP (Online Certificate Status Protocol).
+The certificate for the “ftp” service passed all checks.
+
+
+How to install the hostname SSL certificate onto the cPanel services:-
+======================================================================
+
+The hostname SSL certificate is applied to these cPanel services:-
+
+-> FTP Server
+-> Exim (SMTP) Server
+-> Calendar, cPanel, WebDisk, Webmail, and WHM Services
+-> Dovecot Mail Server
+
+Procedure:-
+
+1. To install an SSL certificate for your server's hostname, and also onto the WHM/cPanel services, use the following location:
+
+WHM: Home -> Service Configuration -> Manage Service SSL Certificates
+
+For more Detail you can refer this URL: https://support.cpanel.net/hc/en-us/articles/1500006417322-How-to-install-the-hostname-SSL-certificate-onto-the-cPanel-services
+
+                                                <----  The End  ---->
