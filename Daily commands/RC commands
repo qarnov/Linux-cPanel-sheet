@@ -1,0 +1,239 @@
+account:	
+checkcancel <user> <server>	displays last cPanel and FTP login times for an account
+countproc <domain> [server]	check current number of processes for a user
+domlist <user> <server>	lists domains for a user
+inodes <server> <path>	shows a breakdown of inodes based on a path
+searchcpanel <domain> [server]	search cPanel access logs
+ui <domain> [server]	display domain/account information
+	
+apache:	
+apachegrep <server> <search keyword(s)>	grep the last n lines of apache error log
+apachelog <domain> [server]	show last 10k lines related to a specified domain/user
+apachetail <server> <search keyword(s)>	tails the global apache error log
+awstats <primary domain> <server> [number of top results]	displays the top number of sites/traffic via the customers awstats logs. Specifying 0 will provide this months stats.
+checksites <domain|user> <-r|-u> [server]	checks a users domains for problems (-r will show all resold domains under a reseller)
+createinfo <domain> <server>	create a phpinfo page in the users public_html
+dirdisableuserdir <user> <server> [1]	disables userdir for a user, optional input tells the script whether or not the changes should be applied immediately
+dircreateini <domain> <server>	create a modifiable php.ini in the users home
+edithtaccess <domain> <server>	add the sipdir and sipfed dns records required for Office365
+phphandler <domain> <server> <52|53|54|55|strip>	updates a domains htaccess to use the specified php version
+phpvers <IP|Server>	displays all php versions installed on specified server
+scoreboard <domain> <server>	check concurrent apache connections for a server
+sitereport <domain> <server>	performs a variety of account checks and reports problems
+uf <domain> <server>	display all vhosts matching the the domain
+	
+cpanel:	
+checkips <server>	runs a check against used dedicated IPs to ensure theyre being used properly
+checkrescancel <user> <server>	displays last cPanel and FTP login times for a reseller and resold
+iskilled <domain> <server>	runs iskilled against a specified domain
+ipdedi <domain> <server>	shows information regarding dedi ip usage for a domain
+killgrep <server> <search terms>	search through kill logs
+logingrep <server> <search keyword(s)>	greps the cphulkd and cPanel logs for user failed logins and blocks
+oi <reseller> <server>	shows detailed information about a domain from the server
+permfix <domain> [server]	resets permissions on public_html and all subfiles/folders for a user
+pwreset <domain> <server>	changes password for a user to a random password
+pwtemp <setuser|unsetuser|setmail|unsetmail|setwp|unsetwp|setjoom|unsetjoom|setplesk|unsetplesk> <username|email|database> <server|ip>	set/remove temporary passwords for accounts/emails/several CMS
+quota <domain> <server>	check current quota for a user. (includes inodes)
+resipcheck <user> <server>	print a list of accounts with dedicated ips
+	
+	
+dns:	
+checkzone <domain> <server	test if there is any errors in a domains zonefile
+dcheck <domain>	provides information about a domain
+dig <domain> [type-of-record]	performs the dig command against a provided domain
+dns <domain>	prints dns information about a domain
+editdns <domain> <server>	edits DNS zonefile for specified domain
+ipfix <domain> [server]	fixes mismatch DNS and vhost ips
+ipid <ip|domain>	performs standard ip related lookups
+nslookup <domain|ip>	nslookup for domain or IP
+viewzone <domain> [server]	views a DNS zone file for a domain
+whois <domain|ip>	whois a domain or IP
+	
+	
+email:	
+catchall <domain> <server>	toggle catchall setting for a user
+couriergrep <server> <search keyword(s)>	grep a string out of the courier log (pop/imap mail log)
+couriertail <domain> <server>	tail courier log (pop/imap mail log)
+dtoggle <domain> <server>	toggle a domain in /etc/localdomains & /etc/remotedomains
+ec <server> <user> [-h # of hours]	runs ec against an account
+emailcheck <domain> <server>	list email accounts for a user with quota and remote / local status
+eximgrep <server> <search keyword(s)>	grep the exim logs for certain terms
+eximtail <domain> <server>	tail exim log (smtp mail logs)
+ggrep <search string> <file> <server>	greps the specified gateway maillog for the specified string
+imapcheck <user|email> <server>	checks to see if a user has hit our imap kill limit recently
+listfwder <domain> [server]	list forwarders for a user
+mailperm <domain> <server>	fix the mailbox permissions for a user
+popcheck <domain> <user> <password>	check a POP/IMAP login for a user
+pushmail <domain> <server>	enables iPhone pushmail w/z-push
+rblcheck <ip>	checks an IP against RBLs
+rldomcheck <domain> [server]	check whether domain is in localdomains or remotedomains
+	
+	
+ftp:	
+pwsync <domain> <server>	sync ftp/cPanel passwords
+testftp <server> <user> <password>	tests an ftp transaction against an account
+	
+	
+misc:	
+checkfire <ip> <server>	checks for a customers IP in the firewall. Partial IPs accepted
+du <domain> [server]	display disk and inode usage on specified server
+fixsb <domain> <server>	find and fix php_value mbstring in .htaccess for a user
+genpass [joomla|wp|md5]	Will generate a random password for you, if joomla then password hash and salt is printed for insertion into database
+grabips <IP|Server>	lists all ips bound to a server
+gtmetrix <domain>	runs a gtmetrix scan on target
+host	host lookup for IP or hostname
+lsattr <server> </path/to/file>	checks file for immutable attribute (chattr)
+man <article>	opens man page for a command
+mtr <IP|Server>	traceroutes to destination
+mtrreport <ip|domain> [count]	traceroutes to destination using mtrs -r report. Count is a specification of -c and is optional
+n <ip|hostname>	port scans an IP or hostname
+outboundwhitelist <user> <server>	whitelists a user to be able to make outbound posts to wp-login
+ping <IP|Server> [count]	ping a domain until ctrl-cd or until numpings is reached
+retrace <ip> <server>	reverse traceroute, must include server
+status <mysql|httpd|exim|named|dovecot|cron|cpanel|sshd> <server>	returns the status of a service running on a server
+telnet <ip|domain> <port>	attempts to telnet on a specified port
+traceroute <domain|ip>	traceroute a network location from wizard
+w <ip|server>	display who is logged in to a server
+whoson <server|all> <monitor|security|support|migration|all> [username]	provides information on who is logged into specific servers
+wpinfo <domain[/path]> <server> <status|check|resettheme|reseturl|disableplugins|editconf|profile>	displays wordpress information about a given site
+	
+	
+mysql:	
+adduserdb <database> <database_user> <server>	assigns a mysql user to a database
+backupdb <database> <server>	dumps small databases into users homedirectory
+checksql <domain> <server>	show current mysql usage for a user
+mkdbuser <user> <database_user> <server>	creates a new database user
+myisamchk <database> <server>	repair a database
+mysqllog <domain> <server>	show last 1000 lines for SQL error log
+removeuserdb <database> <database_user> <server>	remove a user access to a specific database
+	
+	
+sales:	
+gencsr	generates rsa csr
+installssldediip <domain> <server> [1]	installs an ssl certificate for a domain and assigns them a dedicated IP - 3rd option is optional, put in 1 if the SSL provided is NOT comodo
+installsslsni <domain> <server> [1]	installs an ssl certificate for a domain and assigns them a dedicated IP - 3rd option is optional, put in 1 if the SSL provided is NOT comodo
+removedediip <domain> <server>	sets a user back to the primary shared IP
+	
+	
+security:	
+scan <server> <user> <ticket-id>	runs clamscan on an account
+secinfo <domain> [server]	check a domain for mod_security blocksaccount:	
+checkcancel <user> <server>	displays last cPanel and FTP login times for an account
+countproc <domain> [server]	check current number of processes for a user
+domlist <user> <server>	lists domains for a user
+inodes <server> <path>	shows a breakdown of inodes based on a path
+searchcpanel <domain> [server]	search cPanel access logs
+ui <domain> [server]	display domain/account information
+	
+apache:	
+apachegrep <server> <search keyword(s)>	grep the last n lines of apache error log
+apachelog <domain> [server]	show last 10k lines related to a specified domain/user
+apachetail <server> <search keyword(s)>	tails the global apache error log
+awstats <primary domain> <server> [number of top results]	displays the top number of sites/traffic via the customers awstats logs. Specifying 0 will provide this months stats.
+checksites <domain|user> <-r|-u> [server]	checks a users domains for problems (-r will show all resold domains under a reseller)
+createinfo <domain> <server>	create a phpinfo page in the users public_html
+dirdisableuserdir <user> <server> [1]	disables userdir for a user, optional input tells the script whether or not the changes should be applied immediately
+dircreateini <domain> <server>	create a modifiable php.ini in the users home
+edithtaccess <domain> <server>	add the sipdir and sipfed dns records required for Office365
+phphandler <domain> <server> <52|53|54|55|strip>	updates a domains htaccess to use the specified php version
+phpvers <IP|Server>	displays all php versions installed on specified server
+scoreboard <domain> <server>	check concurrent apache connections for a server
+sitereport <domain> <server>	performs a variety of account checks and reports problems
+uf <domain> <server>	display all vhosts matching the the domain
+	
+cpanel:	
+checkips <server>	runs a check against used dedicated IPs to ensure theyre being used properly
+checkrescancel <user> <server>	displays last cPanel and FTP login times for a reseller and resold
+iskilled <domain> <server>	runs iskilled against a specified domain
+ipdedi <domain> <server>	shows information regarding dedi ip usage for a domain
+killgrep <server> <search terms>	search through kill logs
+logingrep <server> <search keyword(s)>	greps the cphulkd and cPanel logs for user failed logins and blocks
+oi <reseller> <server>	shows detailed information about a domain from the server
+permfix <domain> [server]	resets permissions on public_html and all subfiles/folders for a user
+pwreset <domain> <server>	changes password for a user to a random password
+pwtemp <setuser|unsetuser|setmail|unsetmail|setwp|unsetwp|setjoom|unsetjoom|setplesk|unsetplesk> <username|email|database> <server|ip>	set/remove temporary passwords for accounts/emails/several CMS
+quota <domain> <server>	check current quota for a user. (includes inodes)
+resipcheck <user> <server>	print a list of accounts with dedicated ips
+	
+	
+dns:	
+checkzone <domain> <server	test if there is any errors in a domains zonefile
+dcheck <domain>	provides information about a domain
+dig <domain> [type-of-record]	performs the dig command against a provided domain
+dns <domain>	prints dns information about a domain
+editdns <domain> <server>	edits DNS zonefile for specified domain
+ipfix <domain> [server]	fixes mismatch DNS and vhost ips
+ipid <ip|domain>	performs standard ip related lookups
+nslookup <domain|ip>	nslookup for domain or IP
+viewzone <domain> [server]	views a DNS zone file for a domain
+whois <domain|ip>	whois a domain or IP
+	
+	
+email:	
+catchall <domain> <server>	toggle catchall setting for a user
+couriergrep <server> <search keyword(s)>	grep a string out of the courier log (pop/imap mail log)
+couriertail <domain> <server>	tail courier log (pop/imap mail log)
+dtoggle <domain> <server>	toggle a domain in /etc/localdomains & /etc/remotedomains
+ec <server> <user> [-h # of hours]	runs ec against an account
+emailcheck <domain> <server>	list email accounts for a user with quota and remote / local status
+eximgrep <server> <search keyword(s)>	grep the exim logs for certain terms
+eximtail <domain> <server>	tail exim log (smtp mail logs)
+ggrep <search string> <file> <server>	greps the specified gateway maillog for the specified string
+imapcheck <user|email> <server>	checks to see if a user has hit our imap kill limit recently
+listfwder <domain> [server]	list forwarders for a user
+mailperm <domain> <server>	fix the mailbox permissions for a user
+popcheck <domain> <user> <password>	check a POP/IMAP login for a user
+pushmail <domain> <server>	enables iPhone pushmail w/z-push
+rblcheck <ip>	checks an IP against RBLs
+rldomcheck <domain> [server]	check whether domain is in localdomains or remotedomains
+	
+	
+ftp:	
+pwsync <domain> <server>	sync ftp/cPanel passwords
+testftp <server> <user> <password>	tests an ftp transaction against an account
+	
+	
+misc:	
+checkfire <ip> <server>	checks for a customers IP in the firewall. Partial IPs accepted
+du <domain> [server]	display disk and inode usage on specified server
+fixsb <domain> <server>	find and fix php_value mbstring in .htaccess for a user
+genpass [joomla|wp|md5]	Will generate a random password for you, if joomla then password hash and salt is printed for insertion into database
+grabips <IP|Server>	lists all ips bound to a server
+gtmetrix <domain>	runs a gtmetrix scan on target
+host	host lookup for IP or hostname
+lsattr <server> </path/to/file>	checks file for immutable attribute (chattr)
+man <article>	opens man page for a command
+mtr <IP|Server>	traceroutes to destination
+mtrreport <ip|domain> [count]	traceroutes to destination using mtrs -r report. Count is a specification of -c and is optional
+n <ip|hostname>	port scans an IP or hostname
+outboundwhitelist <user> <server>	whitelists a user to be able to make outbound posts to wp-login
+ping <IP|Server> [count]	ping a domain until ctrl-cd or until numpings is reached
+retrace <ip> <server>	reverse traceroute, must include server
+status <mysql|httpd|exim|named|dovecot|cron|cpanel|sshd> <server>	returns the status of a service running on a server
+telnet <ip|domain> <port>	attempts to telnet on a specified port
+traceroute <domain|ip>	traceroute a network location from wizard
+w <ip|server>	display who is logged in to a server
+whoson <server|all> <monitor|security|support|migration|all> [username]	provides information on who is logged into specific servers
+wpinfo <domain[/path]> <server> <status|check|resettheme|reseturl|disableplugins|editconf|profile>	displays wordpress information about a given site
+	
+	
+mysql:	
+adduserdb <database> <database_user> <server>	assigns a mysql user to a database
+backupdb <database> <server>	dumps small databases into users homedirectory
+checksql <domain> <server>	show current mysql usage for a user
+mkdbuser <user> <database_user> <server>	creates a new database user
+myisamchk <database> <server>	repair a database
+mysqllog <domain> <server>	show last 1000 lines for SQL error log
+removeuserdb <database> <database_user> <server>	remove a user access to a specific database
+	
+	
+sales:	
+gencsr	generates rsa csr
+installssldediip <domain> <server> [1]	installs an ssl certificate for a domain and assigns them a dedicated IP - 3rd option is optional, put in 1 if the SSL provided is NOT comodo
+installsslsni <domain> <server> [1]	installs an ssl certificate for a domain and assigns them a dedicated IP - 3rd option is optional, put in 1 if the SSL provided is NOT comodo
+removedediip <domain> <server>	sets a user back to the primary shared IP
+	
+	
+security:	
+scan <server> <user> <ticket-id>	runs clamscan on an account
+secinfo <domain> [server]	check a domain for mod_security blocks
