@@ -5,6 +5,7 @@ domlist <user> <server>	lists domains for a user
 inodes <server> <path>	shows a breakdown of inodes based on a path
 searchcpanel <domain> [server]	search cPanel access logs
 ui <domain> [server]	display domain/account information
+top <domain> <server>
 	
 apache:	
 apachegrep <server> <search keyword(s)>	grep the last n lines of apache error log
